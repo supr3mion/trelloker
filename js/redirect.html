@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Redirecting...</h1>
+<h1 id="token"></h1>
+</body>
+<script>
+
+    // var some_url = 'http://localhost/trelloker/php/oAuth_return.php#token=d26079e2e253f286b3f44ddca3d635c36d08b9a1a63db5de4f87088005390a2f'
+
+    var hash = new URL(document.URL).hash;
+    hash = hash.replace(/#/g, "?")
+
+    var url = "http://localhost/trelloker/php/oAuth_return.php" + hash;
+
+    // "#slider"
+    // console.log(hash);
+    // document.getElementById("token").innerHTML = url;
+
+    window.location.replace(url);
+</script>
+</html>
