@@ -18,6 +18,8 @@ class oAuth {
             $KEY = '95eb9c01c3bbd6f39bd34537b9126225';
         }
 
+        $_SESSION['KEY'] = $KEY;
+
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
             $return_url = "https://";
         else
