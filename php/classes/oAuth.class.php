@@ -35,7 +35,7 @@ class oAuth {
             'expiration' => '1day',
             'name' => 'Trelloker',
             'response_type' => 'token',
-            'return_url' => 'http://localhost/trelloker/js/redirect.html',
+            'return_url' => 'http://localhost/trelloker/html/redirect.html',
             'callback_method' => 'fragment',
             'scope' => 'read,write',
         );

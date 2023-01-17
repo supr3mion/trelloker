@@ -3,6 +3,7 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
+  darkMode: 'class',
   content: ['./page/*.{html,js,php}','./php/classes/*.{html,js,php}' , './node_modules/tw-elements/dist/js/**/*.js'],
   theme: {
     colors: {
@@ -12,10 +13,11 @@ module.exports = {
       'gainsboro': '#E0E0E0',
       'black': '#000000',
       'neutral': colors.neutral,
+      'blue': colors.blue,
     },
     extend: {},
   },
   plugins: [
-      require('tw-elements/dist/plugin'),vb gvgv
+      require('tw-elements/dist/plugin'),
   ],
 }
