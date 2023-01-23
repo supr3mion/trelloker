@@ -15,7 +15,7 @@ class api {
             "color" => "red_dark"
         ],
         [
-            "name" => "l",
+            "name" => "L",
             "color" => "red"
         ],
         [

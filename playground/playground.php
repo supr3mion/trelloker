@@ -176,3 +176,67 @@
 //---------------------------------------------------------------------------------------------------------------------------------
 
 ?>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <script>-->
+<!--        function sendValue() {-->
+<!--            const button = document.getElementById("myButton");-->
+<!--            const value = button.getAttribute("value");-->
+<!--            console.log(value)-->
+<!---->
+<!--            fetch("#", {-->
+<!--                method: "POST",-->
+<!--                body: "value=" + value-->
+<!--            })-->
+<!--                .then(response => response.text())-->
+<!--                .then(data => {-->
+<!--                    // Handle the response from the PHP script-->
+<!--                    console.log(data)-->
+<!--                    document.getElementById("output").innerHTML = data;-->
+<!--                });-->
+<!--        }-->
+<!--        --><?php
+//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//            $value = $_POST['value'];
+//            // Do something with the
+//            var_dump($value);
+////            die();
+//            echo $value;
+//        }
+//        ?>
+<!--    </script>-->
+<!--    <title>playground</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<button id="myButton" value="hello" onclick="sendValue()">hello</button>-->
+<!--<div id="output"></div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Value Example</title>
+</head>
+<body>
+<button id="button1" value="button1">Button 1</button>
+<button id="button2" value="button2">Button 2</button>
+<button id="button3" value="button3">Button 3</button>
+<p id="output"></p>
+<script>
+    var buttons = document.querySelectorAll("button");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function() {
+            var output = document.getElementById("output");
+            output.innerHTML = "You clicked button: " + this.value;
+        });
+    }
+</script>
+</body>
+</html>
+
+
+
+

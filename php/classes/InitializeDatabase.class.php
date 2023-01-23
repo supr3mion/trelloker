@@ -12,7 +12,7 @@ class InitializeDatabase
         $this->DB = $database->connect();
 
         $TrelloID = $_SESSION['TrelloID'];
-        $sql = "SELECT * FROM `poker` WHERE `TrelloID` = '5f44e19d81e377488f2de489' and `active` = 'TRUE'";
+        $sql = "SELECT * FROM `poker` WHERE `boardID` = '$BOARD_ID' and `active` = 'TRUE'";
         $result = mysqli_query($this->DB, $sql);
 
 //        var_dump($result);
@@ -32,10 +32,10 @@ class InitializeDatabase
 //                var_dump($complete);
                 if ($complete) {
                     $labelsAdded = $this->InitializeLabels($LABELS);
-                    var_dump($labelsAdded);
+//                    var_dump($labelsAdded);
                     if ($labelsAdded) {
-                        die();
-                        return true;
+//                        die();
+                        return $POKERID;
                     } else {
                         return false;
                     }
@@ -46,7 +46,9 @@ class InitializeDatabase
                 return false;
             }
         } else {
-            return false;
+//            $sql = "SELECT * FROM `poker` WHERE `boardID` = '$BOARD_ID' and `active` = 'True'";
+//            $result = mysqli_query($this->DB, $sql);
+            return mysqli_fetch_assoc($result)['pokerID'];
         }
     }
 

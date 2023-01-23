@@ -10,12 +10,14 @@ $db = $database->connect();
 $url = $_SERVER['PHP_SELF'];
 if (!strpos($url, '/index.php')) {
     if (!isset($_SESSION['TOKEN'])) {
-        header('Location: ../page/index.php');
+        if(!strpos($url, '/player.php')) {
+            header('Location: ../page/index.php');
+        }
     }
 }
 
 if(isset($_POST['authorize'])) {
-    $oath = new oAuth();
+    $oath = new TrelloAuth();
 //    $KEY = $oath->authorization();
     $oath->authorization();
 //    var_dump($KEY);
@@ -27,15 +29,17 @@ if(isset($_POST['play'])) {
         'board_ID' => $ID,
     );
     $url = http_build_query($parameters);
-    header('Location: ../page/host.php?'.$url);
+    header('Location: ../page/prep.php?'.$url);
 }
 
 if(isset($_POST['StartTrelloker'])) {
     $emails = $_POST['emails'];
-    $mailFunction = new mail();
 
-    foreach ($emails as $email) {
-        $mailFunction->sendEmail($email, );
-    }
-    var_dump($emails);
+    $parameters = array(
+        'board_ID' => $_GET['board_ID'],
+    );
+    $url = http_build_query($parameters);
+
+    $_SESSION['emails'] = $emails;
+    header('Location: ../page/host.php?'.$url);
 }

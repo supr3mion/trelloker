@@ -5,14 +5,18 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--    <?php include('../html/header.html'); ?>-->
     <link href="../dist/output.css" rel="stylesheet">
     <link href="../src/style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-    <script src="../js/redirect.js"></script>
+    <script src="../node_modules/tw-elements/dist/js/index.min.js"></script>
+    <script src="../js/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!--    <script src="../js/main.js"></script>-->
     <title>Redirect</title>
 </head>
-<body id="THEME" class="transition theme_LIGHT theme_DARK theme_SYSTEM">
+<body class="dark:bg-black bg-white dark:text-white text-black">
 <h1 class="top-[50%] left-[50%] translate-y-[-50%] translate-x-[-50%] absolute text-4xl">
     Redirecting...
 </h1>
@@ -20,17 +24,58 @@
 </body>
 <script>
 
+    $(document).ready(function(){
+
+        // const url = "https://milan.lesonline.nu/trelloker/php/oAuth_return.php";
+        const url = "../php/oAuth_return.php";
+
+        let cookieHash = new URL(document.URL).hash;
+        cookieHash = cookieHash.replace(/#/g, "");
+        cookieHash = cookieHash.replace("token=", "");
+        const date = new Date();
+        date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
+        let expires = "; expires=" + date.toUTCString();
+        document.cookie = "TOKEN=" + cookieHash + expires + "; path=/";
+
+        window.location.href = url;
+    });
+
     // var some_url = 'http://localhost/trelloker/php/oAuth_return.php#token=d26079e2e253f286b3f44ddca3d635c36d08b9a1a63db5de4f87088005390a2f'
 
-    var hash = new URL(document.URL).hash;
-    hash = hash.replace(/#/g, "?")
+    // let hash = new URL(document.URL).hash;
+    // hash = hash.replace(/#/g, "?");
+    //
+    // let cookieHash = new URL(document.URL).hash;
+    // cookieHash = cookieHash.replace(/#/g, "");
+    // cookieHash = cookieHash.replace("token=", "");
 
-    var url = "http://localhost/trelloker/php/oAuth_return.php" + hash;
+    // var url = "http://localhost/trelloker/php/oAuth_return.php" + hash;
+    // const url = "http://milan.lesonline.nu/trelloker/php/oAuth_return.php" + hash;
+    // const url = "https://milan.lesonline.nu/trelloker/php/oAuth_return.php";
+    // const url = "../php/oAuth_return.php";
+
+    // const date = new Date();
+    //
+    // date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
+    // let expires = "; expires=" + date.toUTCString();
+    //
+    // document.cookie = "TOKEN=" + cookieHash + expires + "; path=/";
+    // console.log(cookieHash);
+    // console.log(url);
+
+    // date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
+    // let expires = "; expires=" + date.toUTCString();
+    //
+    // console.log(this.value)
+    // document.cookie = "answerValue=" + this.value + expires + "; path=/";
 
     // "#slider"
     // console.log(hash);
     // document.getElementById("token").innerHTML = url;
 
-    window.location.replace(url);
+    // window.location.replace(url);
+    // window.location = url;
+    // window.location = "../trelloker/php/oAuth_return.php" + hash;
+    // window.location.href = url;
 </script>
 </html>

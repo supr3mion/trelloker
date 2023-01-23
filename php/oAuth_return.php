@@ -1,8 +1,24 @@
 <?php
 
+
 include ('../php/server.php');
 
-$token = $_GET['token'];
+//session_start();
+//
+//error_reporting(E_ALL);
+//
+//echo "test";
+////die();
+//
+//include ('autoloader.php');
+//
+//$database = new database();
+//$db = $database->connect();
+
+//$token = $_GET['token'];
+$token = $_COOKIE['TOKEN'];
+
+//echo $token;
 
 if ($token == '') {
     $error = $_GET['error'];
@@ -24,11 +40,13 @@ if ($token == '') {
     $context = stream_context_create(array('http'=>array('protocol_version'=>'1.1')));
     $response = file_get_contents($url, false, $context);
 
+
     $data = json_decode($response, true);
     $username = $data['username'];
     $TrelloID = $data['id'];
 
     $_SESSION['TrelloID'] = $TrelloID;
+
 
 //    header("Content-Type: application/json");
 //    var_dump($data);
@@ -37,7 +55,7 @@ if ($token == '') {
 
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-    $sql = "INSERT INTO Login(`TrelloID`, `Username`, `userAgent`) VALUES ('$TrelloID', '$username', '$user_agent')";
+    $sql = "INSERT INTO login(`TrelloID`, `Username`, `userAgent`) VALUES ('$TrelloID', '$username', '$user_agent')";
 
     $result = mysqli_query($db, $sql);
 
@@ -61,5 +79,19 @@ if ($token == '') {
 
     header('Location: ../page/boards.php');
 }
+?>
 
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hello</title>
+</head>
+<body>
+
+</body>
+</html>
 
