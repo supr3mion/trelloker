@@ -2,16 +2,20 @@
 
 include ("../php/server.php");
 
-$_SESSION['PLAYERID'] = $_GET['ID'];
+//$_SESSION['PLAYERID'] = $_GET['ID'];
+//var_dump($_GET['ID']);
 $player = new player();
 
-$_SESSION['POKERID'] = $player->init($_SESSION['PLAYERID'], $db);
-if (!$_SESSION['POKERID']) {
+//$_SESSION['POKERID'] = $player->init($_SESSION['PLAYERID'], $db);
+//$_SESSION['POKERID'] = $player->init($_GET['ID'], $db);
+
+$PLAYERID = $_GET['ID'];
+$POKERID = $player->init($PLAYERID, $db);
+if (!$POKERID) {
     $active = false;
 } else {
     $active = true;
 }
-
 
 ?>
 
@@ -23,11 +27,9 @@ if (!$_SESSION['POKERID']) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php include('../html/header.html'); ?>
-    <script src="../js/player.js"></script>
-    <title>PLayer</title>
+    <title>player</title>
 </head>
-<body class="transition text-white dark:bg-black bg-white" onload="refreshCard()">
-
+<body class="transition text-white dark:bg-black bg-white">
     <div class="relative h-screen">
         <div class="absolute inset-0 flex items-center justify-center">
             <div class="w-[100%] h-[70%] dark:border-white border-black my-5 border-x-4 rounded">
@@ -37,7 +39,11 @@ if (!$_SESSION['POKERID']) {
                             <div id="card" >
                                 <?php
 
-                                $DATA = $player->updater($_SESSION['POKERID'], $db);
+                                if ($active) {
+                                    $DATA = $player->updater($POKERID, $db);
+                                } else {
+                                    $DATA = false;
+                                }
 
                                 if(!$DATA) {
                                     ?>
@@ -67,132 +73,26 @@ if (!$_SESSION['POKERID']) {
                         <button id="levelButton" value="ML" class="rounded bg-ML p-4">ML</button>
                         <button id="levelButton" value="L" class="rounded bg-L p-4">L</button>
                         <button id="levelButton" value="XL" class="col-span-2 bg-XL rounded p-4">XL</button>
-                        <div id="answerObject" class="rounded p-36 col-span-2 row-span-4 hidden text-center"></div>
-                        <div id="answerValue" class="hidden">
-                            <?php $player->submitAnswer($_SESSION['PLAYERID'], $db); ?>
-                        </div>
+
+                        <button id="answerButton" class="rounded p-36 col-span-2 row-span-4 hidden text-center"></button>
+                        <div id="answerPermanent" class="rounded p-36 col-span-2 row-span-4 hidden text-center"></div>
+
+                        <button id="submitAnswer" class="rounded dark:border-white border-black border-2 hidden p-4 col-span-2">Verstuur antwoord</button>
+                        <div id="PLAYERID" class="hidden"><?php echo $PLAYERID ?></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-
-        const Card = document.getElementById("card");
-        let prevCard = Card.innerHTML;
-
-        const answerObject = document.getElementById("answerObject");
-
-        const buttons = document.querySelectorAll("#levelButton")
-
-
-        function refreshCard() {
-
-            $('#card').load(' #card', function(){
-                if(prevCard !== Card.innerHTML) {
-                    prevCard = Card.innerHTML
-                    console.log(Card.innerHTML)
-
-                    if(!Card.innerHTML.includes("noCard")) {
-                        buttons.forEach(function (element) {
-                            element.classList.remove("hidden")
-                        })
-                    }
-
-                    answerObject.classList.remove('bg-SS', 'bg-S', 'bg-SM', 'bg-M', 'bg-ML', 'bg-L', 'bg-XL')
-                    answerObject.classList.add('hidden')
-                    answerObject.innerHTML = ''
-
-                    deleteCookies()
-                }
-            })
-
-            setTimeout(refreshCard, 1000)
-        }
-
-        const date = new Date();
-
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener("click", function() {
-
-                date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
-                let expires = "; expires=" + date.toUTCString();
-
-                console.log(this.value)
-                document.cookie = "answerValue=" + this.value + expires + "; path=/";
-
-                const answerValue = document.getElementById("answerValue");
-                // answerValue.innerHTML = this.value;
-
-                $('#answerValue').load(' #answerValue');
-
-                buttons.forEach(function (element) {
-                    element.classList.add("hidden")
-                })
-
-                switch (buttons[i].classList[1]) {
-                    case "bg-SS":
-                        answerObject.classList.add('bg-SS')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-
-                    case "bg-S":
-                        answerObject.classList.add('bg-S')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-
-                    case "bg-SM":
-                        answerObject.classList.add('bg-SM')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-
-                    case "bg-M":
-                        answerObject.classList.add('bg-M')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-
-                    case "bg-ML":
-                        answerObject.classList.add('bg-ML')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-
-                    case "bg-L":
-                        answerObject.classList.add('bg-L')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-
-                    case "bg-XL":
-                        answerObject.classList.add('bg-XL')
-                        answerObject.classList.remove('hidden')
-                        answerObject.innerHTML = this.value;
-                        return;
-                }
-
-            });
-        }
-
-        function deleteCookies() {
-            date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
-            let expires = "; expires=" + date.toUTCString();
-
-            document.cookie = "answerValue=empty"+ expires + "; path=/";
-
-            $('#answerValue').load(' #answerValue');
-        }
-
-        deleteCookies()
-
-    </script>
+    <script src="../js/player.js"></script>
 
 <button id="switch_theme" class="bg-white text-black border-black dark:bg-black dark:text-white dark:border-white
     fixed top-0 right-0 w-32 py-2 m-3 text-xl border-2 text-center rounded overflow-hidden"></button>
+
+    <script>
+
+    </script>
 
 </body>
 </html>

@@ -1,22 +1,21 @@
 <?php
 
 
-include ('../php/server.php');
+//include ('../php/server.php');
 
-//session_start();
-//
-//error_reporting(E_ALL);
+session_start();
+
+error_reporting(E_ALL);
 //
 //echo "test";
-////die();
+//die();
 //
-//include ('autoloader.php');
-//
-//$database = new database();
-//$db = $database->connect();
+include ('autoloader.php');
 
-//$token = $_GET['token'];
-$token = $_COOKIE['TOKEN'];
+$database = new database();
+$db = $database->connect();
+
+$token = $_GET['token'];
 
 //echo $token;
 
@@ -48,11 +47,6 @@ if ($token == '') {
     $_SESSION['TrelloID'] = $TrelloID;
 
 
-//    header("Content-Type: application/json");
-//    var_dump($data);
-//    var_dump($_SESSION['TrelloID']);
-//    die();
-
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     $sql = "INSERT INTO login(`TrelloID`, `Username`, `userAgent`) VALUES ('$TrelloID', '$username', '$user_agent')";
@@ -68,17 +62,12 @@ if ($token == '') {
         header('Location: ../page/boards.php');
     }
 
-//    var_dump($db);
-//
-//    header("Content-Type: application/json");
-//    var_dump($result);
-//    var_dump($username);
-//    var_dump($user_agent);
-//
-//    die();
 
     header('Location: ../page/boards.php');
 }
+
+
+
 ?>
 
 <!doctype html>
@@ -88,10 +77,9 @@ if ($token == '') {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>hello</title>
+    <title>Document</title>
 </head>
 <body>
 
 </body>
 </html>
-

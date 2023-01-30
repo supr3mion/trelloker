@@ -215,28 +215,42 @@
 <!--</body>-->
 <!--</html>-->
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Button Value Example</title>
-</head>
-<body>
-<button id="button1" value="button1">Button 1</button>
-<button id="button2" value="button2">Button 2</button>
-<button id="button3" value="button3">Button 3</button>
-<p id="output"></p>
-<script>
-    var buttons = document.querySelectorAll("button");
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].addEventListener("click", function() {
-            var output = document.getElementById("output");
-            output.innerHTML = "You clicked button: " + this.value;
-        });
-    }
-</script>
-</body>
-</html>
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Button Value Example</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<button id="button1" value="button1">Button 1</button>-->
+<!--<button id="button2" value="button2">Button 2</button>-->
+<!--<button id="button3" value="button3">Button 3</button>-->
+<!--<p id="output"></p>-->
+<!--<script>-->
+<!--    var buttons = document.querySelectorAll("button");-->
+<!--    for (var i = 0; i < buttons.length; i++) {-->
+<!--        buttons[i].addEventListener("click", function() {-->
+<!--            var output = document.getElementById("output");-->
+<!--            output.innerHTML = "You clicked button: " + this.value;-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
 
 
+<?php
 
+include_once ('../php/classes/database.class.php');
+
+$database = new database();
+$DB = $database->connect();
+
+$sql = "SELECT * FROM `labels` WHERE `boardID` = '6310a24207977f021709caff' AND `labelName` = 'SS'";
+$result = mysqli_query($DB, $sql);
+
+//var_dump($result);
+
+var_dump(mysqli_fetch_assoc($result)['labelID']);
+
+?>
 

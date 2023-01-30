@@ -35,8 +35,6 @@ include ('../php/server.php');
             <button id="login_button" class="transition dark:bg-black dark:text-white bg-white text-black relative w-fit h-fit p-4 text-4xl text-center rounded-full" name="authorize" type="submit">Login met Trello</button>
         </form>
     </div>
-<!--    <div id="switch_theme" class="hover:bg-black hover:text-white bg-white text-black border-black dark:hover:bg-white dark:hover:text-black dark:bg-black dark:text-white dark:border-white
-                hover:cursor-pointer hover:duration-300 duration-1000 transition w-32 py-2 text-xl border-2 text-center float-right top-0 m-3 rounded overflow-hidden"></div>-->
     <button id="switch_theme" class="hover:bg-black hover:text-white bg-white text-black border-black dark:hover:bg-white dark:hover:text-black dark:bg-black dark:text-white dark:border-white
     fixed top-0 right-0 w-32 py-2 m-3 hover:cursor-pointer hover:duration-300 duration-1000 transition text-xl border-2 text-center rounded overflow-hidden"></button>
 </body>

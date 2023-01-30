@@ -40,7 +40,8 @@ class api {
         ],
     ];
 
-    function get_all_boards($KEY, $TOKEN) {
+    function get_all_boards($KEY, $TOKEN): array
+    {
 
         $board_info = array(
             "id",
@@ -154,7 +155,7 @@ class api {
 
         };
 
-        header("Content-Type: application/json");
+//        header("Content-Type: application/json");
 
         if (count($cards) < 1){
 //            var_dump("no cards in todo");
@@ -169,7 +170,7 @@ class api {
 
     }
 
-    function preparing_labels($KEY, $TOKEN, $BOARD_ID, $delete_labels = false)
+    function preparing_labels($KEY, $TOKEN, $BOARD_ID, $delete_labels = false): array
     {
 
         if (!$delete_labels) {
@@ -214,7 +215,8 @@ class api {
 
     }
 
-    private function create_labels($KEY, $TOKEN, $BOARD_ID) {
+    private function create_labels($KEY, $TOKEN, $BOARD_ID): array
+    {
 
         $return_list = [];
 
@@ -241,6 +243,39 @@ class api {
         }
 
         return $return_list;
+    }
+
+    function setLabelsToCards($KEY, $TOKEN, $CARD_ID, $LABEL_ID): bool
+    {
+
+
+        $data = array('value' => $LABEL_ID, 'key' => $KEY, 'token' => $TOKEN);
+
+        $options = array(
+            'http' => array(
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method' => 'POST',
+                'content' => http_build_query($data),
+                'protocol_version' => '1.1',
+            ),
+        );
+        $context = stream_context_create($options);
+        $result = file_get_contents('https://api.trello.com/1/cards/'.$CARD_ID.'/idLabels', false, $context);
+        if (!$result) {
+//            var_dump($result);
+            return false;
+        } else {
+//            var_dump($result);
+            return true;
+        }
+//
+//        var_dump($data);
+//        var_dump($TOKEN);
+//        var_dump($KEY);
+//        var_dump($result);
+
+
+
     }
 
 }

@@ -19,13 +19,6 @@ class TrelloAuth {
         }
 
 
-//        if (mysqli_num_rows($results) > 0) {
-//            $results = mysqli_fetch_assoc($results);
-//            $KEY = $results['sleutel'];
-//        } else {
-//            $KEY = '95eb9c01c3bbd6f39bd34537b9126225';
-//        }
-
         $_SESSION['KEY'] = $KEY;
 
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
@@ -44,8 +37,6 @@ class TrelloAuth {
             'name' => 'Trelloker',
             'response_type' => 'token',
 //            'return_url' => 'http://localhost/trelloker/html/redirect.html',
-            'return_url' => 'https://milan.lesonline.nu/trelloker/html/redirect.html',
-//            'return_url' => $return_url,
             'callback_method' => 'fragment',
             'scope' => 'read,write',
         );

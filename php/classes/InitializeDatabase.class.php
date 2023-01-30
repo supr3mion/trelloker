@@ -15,30 +15,20 @@ class InitializeDatabase
         $sql = "SELECT * FROM `poker` WHERE `boardID` = '$BOARD_ID' and `active` = 'TRUE'";
         $result = mysqli_query($this->DB, $sql);
 
-//        var_dump($result);
-//        var_dump($result);
+        if (!$result->num_rows == 0) {
+            $POKERID = mysqli_fetch_assoc($result)['pokerID'];
+            include_once('host.class.php');
+            $HOST = new host();
+            $HOST->DIE($POKERID, $BOARD_ID, $this->DB);
+        }
 
-//        header("Content-Type: application/json");
-//        var_dump($result);
-//        die();
-
-        header("Content-Type: application/json");
-
-        if ($result->num_rows == 0) {
-            $POKERID = $this->InitializePoker($BOARD_ID, $TrelloID);
-//            var_dump($POKERID);
-            if ($POKERID) {
-                $complete = $this->InitializeCards($CARDS, $POKERID);
-//                var_dump($complete);
-                if ($complete) {
-                    $labelsAdded = $this->InitializeLabels($LABELS);
-//                    var_dump($labelsAdded);
-                    if ($labelsAdded) {
-//                        die();
-                        return $POKERID;
-                    } else {
-                        return false;
-                    }
+        $POKERID = $this->InitializePoker($BOARD_ID, $TrelloID);
+        if ($POKERID) {
+            $complete = $this->InitializeCards($CARDS, $POKERID);
+            if ($complete) {
+                $labelsAdded = $this->InitializeLabels($LABELS);
+                if ($labelsAdded) {
+                    return $POKERID;
                 } else {
                     return false;
                 }
@@ -46,10 +36,29 @@ class InitializeDatabase
                 return false;
             }
         } else {
-//            $sql = "SELECT * FROM `poker` WHERE `boardID` = '$BOARD_ID' and `active` = 'True'";
-//            $result = mysqli_query($this->DB, $sql);
-            return mysqli_fetch_assoc($result)['pokerID'];
+            return false;
         }
+
+//        if ($result->num_rows == 0) {
+//            $POKERID = $this->InitializePoker($BOARD_ID, $TrelloID);
+//            if ($POKERID) {
+//                $complete = $this->InitializeCards($CARDS, $POKERID);
+//                if ($complete) {
+//                    $labelsAdded = $this->InitializeLabels($LABELS);
+//                    if ($labelsAdded) {
+//                        return $POKERID;
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//        } else {
+//            return mysqli_fetch_assoc($result)['pokerID'];
+//        }
     }
 
     private function InitializePoker($BOARD_ID, $TrelloID) {

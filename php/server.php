@@ -7,6 +7,8 @@ include ('autoloader.php');
 $database = new database();
 $db = $database->connect();
 
+$HOST = new host();
+
 $url = $_SERVER['PHP_SELF'];
 if (!strpos($url, '/index.php')) {
     if (!isset($_SESSION['TOKEN'])) {
@@ -42,4 +44,11 @@ if(isset($_POST['StartTrelloker'])) {
 
     $_SESSION['emails'] = $emails;
     header('Location: ../page/host.php?'.$url);
+}
+
+if(isset($_POST['quitPoker'])) {
+    $done = $HOST->DIE($_POST['POKERID'], $_POST['board_ID'], $db);
+    if ($done) {
+        header('location: ../page/boards.php');
+    }
 }

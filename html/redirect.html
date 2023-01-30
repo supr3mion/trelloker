@@ -26,18 +26,20 @@
 
     $(document).ready(function(){
 
-        // const url = "https://milan.lesonline.nu/trelloker/php/oAuth_return.php";
-        const url = "../php/oAuth_return.php";
+        // const url = "https://milan.lesonline.nu/trelloker/php/oAuth_return.php?token=";
+        // const url = "../php/oAuth_return.php";
 
-        let cookieHash = new URL(document.URL).hash;
-        cookieHash = cookieHash.replace(/#/g, "");
-        cookieHash = cookieHash.replace("token=", "");
-        const date = new Date();
-        date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
-        let expires = "; expires=" + date.toUTCString();
-        document.cookie = "TOKEN=" + cookieHash + expires + "; path=/";
+        let TOKEN = new URL(document.URL).hash;
+        TOKEN = TOKEN.replace(/#/g, "");
+        TOKEN = TOKEN.replace("token=", "");
+        // const date = new Date();
+        // date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000);
+        // let expires = "; expires=" + date.toUTCString();
+        // document.cookie = "TOKEN=" + cookieHash + expires + "; path=/";
 
-        window.location.href = url;
+        window.location.href = "https://milan.lesonline.nu/trelloker/php/oAuth_return.php?token=" + TOKEN;
+        // console.log(url)
+        // console.log(TOKEN)
     });
 
     // var some_url = 'http://localhost/trelloker/php/oAuth_return.php#token=d26079e2e253f286b3f44ddca3d635c36d08b9a1a63db5de4f87088005390a2f'

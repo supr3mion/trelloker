@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //check if there are any emails added
         if(emailList.children.length > 0) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = "<i class=\"fa-duotone fa-spinner-third animate-spin\"></i>Start Trelloker"
+            submitBtn.innerHTML = "Start Trelloker"
             submitBtn.classList.add("bg-[#22c55e]", "hover:cursor-pointer");
             submitBtn.classList.remove("bg-[#71717a]", "hover:cursor-not-allowed");
         }
